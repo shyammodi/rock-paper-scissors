@@ -25,9 +25,9 @@ let playerSelectionCased;
 let computerSelection;
 let computerSelectionCased;
 
-function getChoices() {
+function getChoices(choice) {
     
-    playerSelection = prompt("Enter Rock, Paper, or Scissors");
+    playerSelection = choice;
     playerSelectionCased = playerSelection.toLowerCase();
     computerSelection = getComputerChoice();
     computerSelectionCased = computerSelection.toLowerCase();
@@ -37,7 +37,13 @@ function getChoices() {
         playerSelectionCased = playerSelection.toLowerCase();
     }
 
+    playRound(playerSelectionCased, computerSelectionCased);
 }
+
+const choices = Array.from(document.querySelectorAll("button"));
+choices.forEach( choice => {
+    choice.addEventListener("click", () => getChoices(choice.id));});
+
 
 function playRound(playerSelection, computerSelection) {
     if (playerSelection == 'rock') {
@@ -76,17 +82,26 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function declareWin (playerSelection, computerSelection) {
-    console.log(playerSelection + " beats " + computerSelection + "! You win this round");
+    const message = document.createElement("p");
+    message.textContent = playerSelection + " beats " + computerSelection + "! You win this round";
+    const resultsDiv = document.querySelector("#results");
+    resultsDiv.appendChild(message);
     playerWins++;
 }
 
 function declareLoss (playerSelection, computerSelection) {
-    console.log("You lose this round! " + computerSelection + " beats " + playerSelection);
+    const message = document.createElement("p");
+    message.textContent = "You lose this round! " + computerSelection + " beats " + playerSelection;
+    const resultsDiv = document.querySelector("#results");
+    resultsDiv.appendChild(message);
     computerWins++;
 }
 
 function declareTie (playerSelection, computerSelection) {
-    console.log("Tie! Both you and the computer selected " + playerSelection);
+    const message = document.createElement("p");
+    message.textContent = "Tie! Both you and the computer selected " + playerSelection;
+    const resultsDiv = document.querySelector("#results");
+    resultsDiv.appendChild(message);
 }
 
 let playerWins = 0;
@@ -102,4 +117,4 @@ function game () {
     console.log("*Final score*:\nPlayer Wins: " + playerWins + "\nComputer Wins: " + computerWins)
 }
 
-game();
+// game();
