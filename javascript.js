@@ -85,23 +85,57 @@ function declareWin (playerSelection, computerSelection) {
     const message = document.createElement("p");
     message.textContent = playerSelection + " beats " + computerSelection + "! You win this round";
     const resultsDiv = document.querySelector("#results");
+    resultsDiv.textContent = "";
     resultsDiv.appendChild(message);
     playerWins++;
+    updateScore();
+    checkScore();
 }
 
 function declareLoss (playerSelection, computerSelection) {
     const message = document.createElement("p");
     message.textContent = "You lose this round! " + computerSelection + " beats " + playerSelection;
     const resultsDiv = document.querySelector("#results");
+    resultsDiv.textContent = "";
     resultsDiv.appendChild(message);
     computerWins++;
+    updateScore();
+    checkScore();
 }
 
 function declareTie (playerSelection, computerSelection) {
     const message = document.createElement("p");
     message.textContent = "Tie! Both you and the computer selected " + playerSelection;
     const resultsDiv = document.querySelector("#results");
+    resultsDiv.textContent = "";
     resultsDiv.appendChild(message);
+    updateScore();
+    checkScore();
+}
+
+function updateScore() {
+    const playerScore = document.querySelector("#playerScore");
+    const computerScore = document.querySelector("#computerScore");
+    playerScore.textContent = "Player Score: " + playerWins;
+    computerScore.textContent = "Computer Score: " + computerWins;
+}
+
+function checkScore() {
+    if (playerWins === 5) {
+        playerWins = 0;
+        computerWins = 0;
+        const resultsDiv = document.querySelector("#results");
+        resultsDiv.textContent = "";
+        alert("Player Wins!");
+
+    }
+    else if (computerWins === 5) {
+        playerWins = 0;
+        computerWins = 0;
+        const resultsDiv = document.querySelector("#results");
+        resultsDiv.textContent = "";
+        alert("Computer Wins!");
+    }
 }
 
 let playerWins = 0;
